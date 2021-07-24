@@ -1,0 +1,32 @@
+name: exame_todo_list
+description: A challenge given by Exame to prove knowledge. The app is a todolist
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^7.0.1
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: ^5.0.12
+
+flutter:
+
+  uses-material-design: true
+  fonts:
+    - family: Worksans
+      fonts:
+        - asset: assets/fonts/worksans_regular.ttf
+          weight: 400
+        - asset: assets/fonts/worksans_medium.ttf
+          weight: 500
+        - asset: assets/fonts/worksans_semibold.ttf
+          weight: 600
