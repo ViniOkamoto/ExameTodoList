@@ -8,7 +8,7 @@ class TodoRepository {
 
   Future<TodoState> getTaskList() async {
     try {
-      return TodoState.success(todoList: await localSource.getTasks());
+      return TodoState.success(todoList: await localSource.getTaskList());
     } on LocalCacheException catch (e) {
       return TodoState.error(error: LocalFailure(errorText: e.errorText));
     } on Exception {
