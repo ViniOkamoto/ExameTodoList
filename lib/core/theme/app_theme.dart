@@ -3,10 +3,13 @@ import 'package:exame_todo_list/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData appTheme = ThemeData(
+  primaryColor: TodoColors.highlightColor,
+  accentColor: TodoColors.highlightLightColor,
+  unselectedWidgetColor: TodoColors.grayColor,
   fontFamily: Constants.fontFamily,
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
-      primary: PubliColors.darkColor,
+      primary: TodoColors.darkColor,
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -14,9 +17,9 @@ final ThemeData appTheme = ThemeData(
       backgroundColor: MaterialStateProperty.resolveWith<Color>(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return PubliColors.highlightLightColor; // Disabled color
+            return TodoColors.highlightLightColor; // Disabled color
           }
-          return PubliColors.highlightColor; // Regular color
+          return TodoColors.highlightColor; // Regular color
         },
       ),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(

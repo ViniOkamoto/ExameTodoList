@@ -1,7 +1,7 @@
 import 'package:exame_todo_list/core/utils/size_converter.dart';
 import 'package:flutter/material.dart';
 
-class PubliTypo {
+class TodoTypo {
   static TextStyle h1({
     color = Colors.black,
   }) {
@@ -27,8 +27,9 @@ class PubliTypo {
   }) {
     return TextStyle(
       color: color,
-      fontSize: SizeConverter.fontSize(18),
-      fontWeight: FontWeight.w600,
+      letterSpacing: 0.3,
+      fontSize: SizeConverter.fontSize(14),
+      fontWeight: FontWeight.w500,
     );
   }
 
@@ -37,7 +38,7 @@ class PubliTypo {
   }) {
     return TextStyle(
       color: color,
-      fontSize: SizeConverter.fontSize(16),
+      fontSize: SizeConverter.fontSize(14),
       fontWeight: FontWeight.w600,
     );
   }
