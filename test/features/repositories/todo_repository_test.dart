@@ -1,7 +1,7 @@
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
 import 'package:exame_todo_list/features/datasources/todo_local_data_source.dart';
 import 'package:exame_todo_list/features/enums/priority_enum.dart';
-import 'package:exame_todo_list/features/models/todo_model.dart';
+import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:exame_todo_list/features/repositories/todo_repository.dart';
 import 'package:exame_todo_list/features/state/todo_state.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,14 +20,14 @@ void main() {
     repository = TodoRepository(localSource: localDataSource);
   });
 
-  TodoModel mockTodoModel = TodoModel(
+  Todo mockTodoModel = Todo(
     dateTime: DateTime.now(),
-    isFinished: false,
+    itsDone: false,
     priority: TodoPriority.highPriority,
     title: "mock",
   );
 
-  List<TodoModel> mockTaskList = [
+  List<Todo> mockTaskList = [
     mockTodoModel,
     mockTodoModel,
     mockTodoModel,
@@ -52,7 +52,7 @@ void main() {
   );
 
   TodoState mockSuccessfulStateWithEmptyList = TodoState(
-    todoList: <TodoModel>[],
+    todoList: <Todo>[],
   );
 
   group(
@@ -61,14 +61,14 @@ void main() {
       test(
         "Should return TodoState without exception and returning from local source a task list",
         () async {
-          when(localDataSource.getTasks()).thenAnswer(
+          when(localDataSource.getTaskList()).thenAnswer(
             (_) async => mockTaskList,
           );
 
           final result = await repository.getTaskList();
 
           expect(result, mockSuccessfulState);
-          verify(localDataSource.getTasks()).called(1);
+          verify(localDataSource.getTaskList()).called(1);
           verifyNoMoreInteractions(localDataSource);
         },
       );
@@ -76,14 +76,14 @@ void main() {
       test(
         "Should return TodoState without exception and with task list empty",
         () async {
-          when(localDataSource.getTasks()).thenAnswer(
-            (_) async => <TodoModel>[],
+          when(localDataSource.getTaskList()).thenAnswer(
+            (_) async => <Todo>[],
           );
 
           final result = await repository.getTaskList();
 
           expect(result, mockSuccessfulStateWithEmptyList);
-          verify(localDataSource.getTasks());
+          verify(localDataSource.getTaskList());
           verifyNoMoreInteractions(localDataSource);
         },
       );
@@ -91,12 +91,12 @@ void main() {
       test(
         "Should return TodoState with local exception from external source and return a LocalFailure exception inside the state",
         () async {
-          when(localDataSource.getTasks()).thenThrow(LocalCacheException(errorText: "local error"));
+          when(localDataSource.getTaskList()).thenThrow(LocalCacheException(errorText: "local error"));
 
           final result = await repository.getTaskList();
 
           expect(result, mockLocalErrorState);
-          verify(localDataSource.getTasks());
+          verify(localDataSource.getTaskList());
           verifyNoMoreInteractions(localDataSource);
         },
       );
@@ -104,12 +104,12 @@ void main() {
       test(
         "Should return TodoState with any exception and return a Failure exception inside the state",
         () async {
-          when(localDataSource.getTasks()).thenThrow(Exception());
+          when(localDataSource.getTaskList()).thenThrow(Exception());
 
           final result = await repository.getTaskList();
 
           expect(result, mockAnyErrorState);
-          verify(localDataSource.getTasks());
+          verify(localDataSource.getTaskList());
           verifyNoMoreInteractions(localDataSource);
         },
       );
