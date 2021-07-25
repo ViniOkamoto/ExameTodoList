@@ -11,8 +11,8 @@ class TodoRepository {
   Future<TodoState> getTaskList() async {
     try {
       return TodoState.success(todoList: await localSource.getTaskList());
-    } on LocalCacheException catch (e) {
-      return TodoState.error(error: LocalFailure(errorText: e.errorText));
+    } on LocalFailure catch (e) {
+      return TodoState.error(error: e);
     } on Exception {
       return TodoState.error(error: Failure());
     }
@@ -22,8 +22,8 @@ class TodoRepository {
     try {
       await localSource.createTask(todo);
       return TodoCreationState.success();
-    } on LocalCacheException catch (e) {
-      return TodoCreationState.error(error: LocalFailure(errorText: e.errorText));
+    } on LocalFailure catch (e) {
+      return TodoCreationState.error(error: e);
     } on Exception {
       return TodoCreationState.error(error: Failure());
     }

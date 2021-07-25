@@ -93,7 +93,7 @@ void main() {
         test(
           "Should return TodoState with local exception from external source and return a LocalFailure exception inside the state",
           () async {
-            when(localDataSource.getTaskList()).thenThrow(LocalCacheException(errorText: "local error"));
+            when(localDataSource.getTaskList()).thenThrow(LocalFailure(errorText: "local error"));
 
             final result = await repository.getTaskList();
 
@@ -121,7 +121,7 @@ void main() {
         "create scenarios",
         () {
           test(
-            "Should return TodoCreation without exception and verify methods to create todo",
+            "Should return TodoCreation without exception and verify methods for creating todo",
             () async {
               final result = await repository.createTask(mockTodoModel);
 
@@ -146,7 +146,7 @@ void main() {
           test(
             "Should return TodoCreation with LocalFailure exception",
             () async {
-              when(localDataSource.createTask(mockTodoModel)).thenThrow(LocalCacheException(errorText: "erro"));
+              when(localDataSource.createTask(mockTodoModel)).thenThrow(LocalFailure(errorText: "erro"));
               final result = await repository.createTask(mockTodoModel);
 
               expect(result, TodoCreationState.error(error: LocalFailure(errorText: "erro")));
@@ -161,7 +161,7 @@ void main() {
         "delete scenarios",
         () {
           test(
-            "Should return TodoCreation without exception and verify methods to delete todo",
+            "Should return TodoCreation without exception and verify methods for deleting todo",
             () async {
               final result = await repository.deleteTask(mockTodoModel);
 
@@ -189,7 +189,7 @@ void main() {
         "update scenarios",
         () {
           test(
-            "Should return TodoCreation without exception and verify methods to update todo",
+            "Should return TodoCreation without exception and verify methods for updating todo",
             () async {
               final result = await repository.updateTask(mockTodoModel);
 
