@@ -29,7 +29,7 @@ class _TodoListAppState extends State<TodoListApp> {
       debugShowCheckedModeBanner: false,
       title: 'TodoList',
       onGenerateRoute: TodoList.Router.generateRoute,
-      initialRoute: Routes.splash,
+      initialRoute: Routes.home,
     );
   }
 }

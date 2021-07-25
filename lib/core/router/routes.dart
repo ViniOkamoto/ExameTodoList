@@ -1,3 +1,4 @@
 class Routes {
-  static const splash = '/';
+  static const home = '/';
+  static const todo = '/todo';
 }

@@ -10,7 +10,7 @@ class Todo with EquatableMixin, HiveObjectMixin {
   @HiveField(HiveNamesHelper.titleTodoField)
   final String title;
   @HiveField(HiveNamesHelper.dateTimeTodoField)
-  final DateTime dateTime;
+  final DateTime? dateTime;
   @HiveField(HiveNamesHelper.priorityTodoField)
   final TodoPriority priority;
   @HiveField(HiveNamesHelper.itsDoneTodoField)
@@ -18,7 +18,7 @@ class Todo with EquatableMixin, HiveObjectMixin {
 
   Todo({
     required this.title,
-    required this.dateTime,
+    this.dateTime,
     required this.priority,
     required this.itsDone,
   });
