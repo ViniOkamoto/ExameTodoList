@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
-import 'package:exame_todo_list/features/models/todo_model.dart';
+import 'package:exame_todo_list/features/models/todo.dart';
 
 class TodoState extends Equatable {
-  final List<TodoModel>? todoList;
+  final List<Todo>? todoList;
   final bool hasError;
   final bool isLoading;
   final Failure? exception;
@@ -16,14 +16,14 @@ class TodoState extends Equatable {
   });
   factory TodoState.loading() => TodoState(isLoading: true);
 
-  factory TodoState.success({List<TodoModel>? todoList}) => TodoState(
+  factory TodoState.success({List<Todo>? todoList}) => TodoState(
         todoList: todoList,
       );
 
   factory TodoState.error({required Failure error}) => TodoState(hasError: true, exception: error);
 
   TodoState copyWith({
-    List<TodoModel>? todoList,
+    List<Todo>? todoList,
     bool? hasError,
     bool? isLoading,
     Failure? exception,

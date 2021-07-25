@@ -1,4 +1,4 @@
-import 'package:exame_todo_list/core/services/hive/hive_helper.dart';
+import 'package:exame_todo_list/core/services/hive/hive_service.dart';
 import 'package:exame_todo_list/todo_list_app.dart';
 import 'package:flutter/material.dart';
 
