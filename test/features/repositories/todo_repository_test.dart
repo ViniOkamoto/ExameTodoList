@@ -39,11 +39,16 @@ void main() {
       mockTodoModel,
     ],
   );
+
+  TodoState mockSuccessfulStateWithEmptyList = TodoState(
+    todoList: <TodoModel>[],
+  );
+
   group(
     "Todo repository tests",
     () {
       test(
-        "Should return TodoState and returning from localsource a task list",
+        "Should return TodoState without exception and returning from local source a task list",
         () async {
           when(localDataSource.getTasks()).thenAnswer(
             (_) async => mockTaskList,
@@ -52,24 +57,25 @@ void main() {
           final result = await repository.getTaskList();
 
           expect(result, mockSuccessfulState);
-          verify(localDataSource.getTasks());
+          verify(localDataSource.getTasks()).called(1);
           verifyNoMoreInteractions(localDataSource);
         },
       );
       //
-      // test(
-      //   "When is an invalid password should return invalid password failure",
-      //   () async {
-      //     when(repository.authenticateUser(mockLoginRequest)).thenAnswer(
-      //       (_) async => Left<Failure, AuthenticatedUserEntity>(InvalidPasswordFailure()),
-      //     );
-      //     final result = await usecase(mockLoginRequest);
-      //
-      //     expect(result.fold(id, id), isA<InvalidPasswordFailure>());
-      //     verify(repository.authenticateUser(mockLoginRequest));
-      //     verifyNoMoreInteractions(repository);
-      //   },
-      // );
+      test(
+        "Should return TodoState without exception and with task list empty",
+        () async {
+          when(localDataSource.getTasks()).thenAnswer(
+            (_) async => <TodoModel>[],
+          );
+
+          final result = await repository.getTaskList();
+
+          expect(result, mockSuccessfulStateWithEmptyList);
+          verify(localDataSource.getTasks());
+          verifyNoMoreInteractions(localDataSource);
+        },
+      );
       //
       // test(
       //   "When is an invalid password should return invalid password failure",
