@@ -1,3 +1,4 @@
+import 'package:exame_todo_list/core/errors/common_exceptions.dart';
 import 'package:exame_todo_list/features/datasources/todo_local_data_source.dart';
 import 'package:exame_todo_list/features/enums/priority_enum.dart';
 import 'package:exame_todo_list/features/models/todo_model.dart';
@@ -40,6 +41,16 @@ void main() {
     ],
   );
 
+  TodoState mockLocalErrorState = TodoState(
+    exception: LocalFailure(errorText: "local error"),
+    hasError: true,
+  );
+
+  TodoState mockAnyErrorState = TodoState(
+    exception: Failure(),
+    hasError: true,
+  );
+
   TodoState mockSuccessfulStateWithEmptyList = TodoState(
     todoList: <TodoModel>[],
   );
@@ -76,20 +87,32 @@ void main() {
           verifyNoMoreInteractions(localDataSource);
         },
       );
-      //
-      // test(
-      //   "When is an invalid password should return invalid password failure",
-      //   () async {
-      //     when(repository.authenticateUser(mockLoginRequest)).thenAnswer(
-      //       (_) async => Left<Failure, AuthenticatedUserEntity>(InvalidPasswordFailure()),
-      //     );
-      //     final result = await usecase(mockLoginRequest);
-      //
-      //     expect(result, isA<Left<Failure, AuthenticatedUserEntity>>());
-      //     verify(repository.authenticateUser(mockLoginRequest));
-      //     verifyNoMoreInteractions(repository);
-      //   },
-      // );
+
+      test(
+        "Should return TodoState with local exception from external source and return a LocalFailure exception inside the state",
+        () async {
+          when(localDataSource.getTasks()).thenThrow(LocalCacheException(errorText: "local error"));
+
+          final result = await repository.getTaskList();
+
+          expect(result, mockLocalErrorState);
+          verify(localDataSource.getTasks());
+          verifyNoMoreInteractions(localDataSource);
+        },
+      );
+
+      test(
+        "Should return TodoState with any exception and return a Failure exception inside the state",
+        () async {
+          when(localDataSource.getTasks()).thenThrow(Exception());
+
+          final result = await repository.getTaskList();
+
+          expect(result, mockAnyErrorState);
+          verify(localDataSource.getTasks());
+          verifyNoMoreInteractions(localDataSource);
+        },
+      );
     },
   );
 }

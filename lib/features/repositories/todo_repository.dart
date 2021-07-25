@@ -1,3 +1,4 @@
+import 'package:exame_todo_list/core/errors/common_exceptions.dart';
 import 'package:exame_todo_list/features/datasources/todo_local_data_source.dart';
 import 'package:exame_todo_list/features/state/todo_state.dart';
 
@@ -7,9 +8,11 @@ class TodoRepository {
 
   Future<TodoState> getTaskList() async {
     try {
-      return TodoState(todoList: await localSource.getTasks(), isLoading: false);
-    } on Exception catch (e) {
-      return TodoState(exception: e, isLoading: false);
+      return TodoState.success(todoList: await localSource.getTasks());
+    } on LocalCacheException catch (e) {
+      return TodoState.error(error: LocalFailure(errorText: e.errorText));
+    } on Exception {
+      return TodoState.error(error: Failure());
     }
   }
 }
