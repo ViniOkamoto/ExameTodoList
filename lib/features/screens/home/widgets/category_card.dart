@@ -5,15 +5,15 @@ import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
+  final TodoCategoryEnum category;
+  final Function() onTap;
+  final int numberTasks;
+
   CategoryCard({
     required this.category,
     required this.onTap,
     required this.numberTasks,
   });
-
-  final TodoCategoryEnum category;
-  final Function() onTap;
-  final int numberTasks;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class CategoryCard extends StatelessWidget {
               bottom: SizeConverter.relativeHeight(20),
               left: SizeConverter.relativeWidth(130),
               child: Opacity(
-                opacity: 0.4,
+                opacity: 0.2,
                 child: Icon(
                   categoryIcons[category],
                   color: categoryColor[category],

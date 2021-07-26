@@ -9,6 +9,12 @@ enum TodoCategoryEnum {
   other,
 }
 
+const List<TodoCategoryEnum> categoryList = [
+  TodoCategoryEnum.work,
+  TodoCategoryEnum.personal,
+  TodoCategoryEnum.wellness,
+  TodoCategoryEnum.other,
+];
 const Map<TodoCategoryEnum, IconData> categoryIcons = {
   TodoCategoryEnum.work: Icons.work,
   TodoCategoryEnum.personal: Icons.person,

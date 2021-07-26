@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 final ThemeData appTheme = ThemeData(
   primaryColor: TodoColors.highlightColor,
+  backgroundColor: TodoColors.whiteColor,
   accentColor: TodoColors.highlightLightColor,
   unselectedWidgetColor: TodoColors.grayColor,
   fontFamily: Constants.fontFamily,
@@ -24,7 +25,7 @@ final ThemeData appTheme = ThemeData(
       ),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(30.0),
         ),
       ),
     ),

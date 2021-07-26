@@ -7,8 +7,20 @@ enum TodoPriorityEnum {
   lowPriority,
 }
 
+const List<TodoPriorityEnum> priorityList = [
+  TodoPriorityEnum.highPriority,
+  TodoPriorityEnum.mediumPriority,
+  TodoPriorityEnum.lowPriority,
+];
+
 const Map<TodoPriorityEnum, Color> priorityColor = {
   TodoPriorityEnum.highPriority: TodoColors.redPriorityColor,
   TodoPriorityEnum.mediumPriority: TodoColors.yellowPriorityColor,
   TodoPriorityEnum.lowPriority: TodoColors.greenPriorityColor,
+};
+
+const Map<TodoPriorityEnum, String> priorityName = {
+  TodoPriorityEnum.highPriority: "Alta",
+  TodoPriorityEnum.mediumPriority: "Média",
+  TodoPriorityEnum.lowPriority: "Baixa",
 };

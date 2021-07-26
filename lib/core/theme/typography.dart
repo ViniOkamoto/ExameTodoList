@@ -48,8 +48,8 @@ class TodoTypo {
   }) {
     return TextStyle(
       color: color,
-      fontSize: SizeConverter.fontSize(18),
-      fontWeight: FontWeight.w400,
+      fontSize: SizeConverter.fontSize(24),
+      fontWeight: FontWeight.w500,
     );
   }
 

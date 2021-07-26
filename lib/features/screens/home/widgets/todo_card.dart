@@ -9,13 +9,13 @@ import 'package:exame_todo_list/features/widgets/spacing.dart';
 import 'package:flutter/material.dart';
 
 class TodoCard extends StatelessWidget {
+  final Todo todo;
+  final Function(bool?)? onChanged;
+
   TodoCard({
     required this.todo,
     required this.onChanged,
   });
-
-  final Todo todo;
-  final Function(bool?)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +45,7 @@ class TodoCard extends StatelessWidget {
                 Checkbox(
                   onChanged: onChanged,
                   value: todo.itsDone,
+                  shape: CircleBorder(),
                   activeColor: TodoColors.highlightColor,
                 ),
                 Text(
