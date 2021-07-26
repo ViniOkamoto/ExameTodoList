@@ -85,10 +85,30 @@ class _HeaderPage extends StatelessWidget {
 
 class _TodoList extends StatelessWidget {
   final List<Todo> todoList = [
-    Todo(title: "Teste1", dateTime: DateTime.now(), itsDone: false, priority: TodoPriorityEnum.highPriority),
-    Todo(title: "Teste2", itsDone: false, priority: TodoPriorityEnum.highPriority),
-    Todo(title: "Teste3", itsDone: true, priority: TodoPriorityEnum.mediumPriority),
-    Todo(title: "Teste4", itsDone: false, priority: TodoPriorityEnum.lowPriority),
+    Todo(
+        title: "Teste1",
+        dateTime: DateTime.now(),
+        itsDone: false,
+        priority: TodoPriorityEnum.highPriority,
+        category: TodoCategoryEnum.work),
+    Todo(
+      title: "Teste2",
+      itsDone: false,
+      priority: TodoPriorityEnum.highPriority,
+      category: TodoCategoryEnum.wellness,
+    ),
+    Todo(
+      title: "Teste3",
+      itsDone: true,
+      priority: TodoPriorityEnum.mediumPriority,
+      category: TodoCategoryEnum.wellness,
+    ),
+    Todo(
+      title: "Teste4",
+      itsDone: true,
+      priority: TodoPriorityEnum.lowPriority,
+      category: TodoCategoryEnum.wellness,
+    ),
   ];
 
   @override

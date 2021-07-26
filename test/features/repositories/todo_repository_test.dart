@@ -1,5 +1,6 @@
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
 import 'package:exame_todo_list/features/datasources/todo_local_data_source.dart';
+import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
 import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:exame_todo_list/features/repositories/todo_repository.dart';
@@ -25,6 +26,7 @@ void main() {
     dateTime: DateTime.now(),
     itsDone: false,
     priority: TodoPriorityEnum.highPriority,
+    category: TodoCategoryEnum.personal,
     title: "mock",
   );
 

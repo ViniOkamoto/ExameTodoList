@@ -58,7 +58,7 @@ class TodoCard extends StatelessWidget {
               children: [
                 Spacing(width: 13),
                 Icon(
-                  categoryIcons[TodoCategoryEnum.work],
+                  categoryIcons[todo.category],
                   size: SizeConverter.fontSize(24),
                   color: TodoColors.lighterColor,
                 ),
