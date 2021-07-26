@@ -13,6 +13,8 @@ dependencies:
   outline_material_icons: ^0.1.1
   intl:
   get_it: ^7.2.0
+  hive_flutter:
+  dartx: ^0.7.1
 
   flutter:
     sdk: flutter

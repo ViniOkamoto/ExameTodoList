@@ -3,20 +3,20 @@ import 'package:exame_todo_list/core/errors/common_exceptions.dart';
 import 'package:exame_todo_list/features/models/todo.dart';
 
 class HomeState extends Equatable {
-  final List<Todo>? todoList;
+  final List<Todo> todoList;
   final bool hasError;
   final bool isLoading;
   final Failure? exception;
 
   HomeState({
-    this.todoList,
+    this.todoList = const [],
     this.hasError = false,
     this.isLoading = false,
     this.exception,
   });
   factory HomeState.loading() => HomeState(isLoading: true);
 
-  factory HomeState.success({List<Todo>? todoList}) => HomeState(
+  factory HomeState.success({required List<Todo> todoList}) => HomeState(
         todoList: todoList,
       );
 

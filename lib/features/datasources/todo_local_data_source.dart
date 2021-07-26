@@ -16,7 +16,7 @@ class TodoLocalDataSourceImplementation implements TodoLocalDataSource {
   @override
   Future<List<Todo>> getTaskList() async {
     try {
-      final box = await hive.openBox(typeString: 'todo');
+      final box = await hive.getBox(typeString: 'todo');
 
       List<Todo> todoList = box.values.toList() as List<Todo>;
 
@@ -40,7 +40,7 @@ class TodoLocalDataSourceImplementation implements TodoLocalDataSource {
   @override
   Future<void> createTask(Todo todo) async {
     try {
-      final box = await hive.openBox(typeString: 'todo');
+      final box = await hive.getBox(typeString: 'todo');
 
       box.add(todo);
     } on LocalCacheException catch (e) {

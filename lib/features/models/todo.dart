@@ -9,15 +9,15 @@ part 'todo.g.dart';
 @HiveType(typeId: HiveNamesHelper.todoBoxName)
 class Todo with EquatableMixin, HiveObjectMixin {
   @HiveField(HiveNamesHelper.titleTodoField)
-  final String title;
+  late String title;
   @HiveField(HiveNamesHelper.dateTimeTodoField)
-  final DateTime? dateTime;
+  late DateTime? dateTime;
   @HiveField(HiveNamesHelper.priorityTodoField)
-  final TodoPriorityEnum priority;
+  late TodoPriorityEnum priority;
   @HiveField(HiveNamesHelper.categoryTodoField)
-  final TodoCategoryEnum category;
+  late TodoCategoryEnum category;
   @HiveField(HiveNamesHelper.itsDoneTodoField)
-  final bool itsDone;
+  late bool itsDone;
 
   Todo({
     required this.title,
@@ -26,6 +26,21 @@ class Todo with EquatableMixin, HiveObjectMixin {
     required this.priority,
     required this.itsDone,
   });
+
+  Todo copyWith({
+    String? title,
+    DateTime? dateTime,
+    TodoCategoryEnum? category,
+    TodoPriorityEnum? priority,
+    bool? itsDone,
+  }) =>
+      Todo(
+        title: title ?? this.title,
+        dateTime: dateTime ?? this.dateTime,
+        category: category ?? this.category,
+        priority: priority ?? this.priority,
+        itsDone: itsDone ?? this.itsDone,
+      );
 
   @override
   List<Object?> get props => [dateTime, category, itsDone, priority, title];
