@@ -1,4 +1,5 @@
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
+import 'package:exame_todo_list/core/services/hive/hive_names_helper.dart';
 import 'package:exame_todo_list/core/services/hive/hive_service.dart';
 import 'package:exame_todo_list/features/datasources/todo_local_data_source.dart';
 import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
@@ -46,7 +47,7 @@ void main() {
           test(
             "Should open and return hive box and return a task list with 3 elements",
             () async {
-              when(mockHive.openBox(typeString: "todo")).thenAnswer(
+              when(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).thenAnswer(
                 (_) async => mockBox,
               );
               when(mockBox.values.toList()).thenAnswer(
@@ -56,7 +57,7 @@ void main() {
               final result = await localDataSource.getTaskList();
 
               expect(result.length, 3);
-              verify(mockHive.openBox(typeString: "todo")).called(1);
+              verify(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).called(1);
               verify(mockBox.values).called(1);
               verifyNoMoreInteractions(mockBox);
               verifyNoMoreInteractions(mockHive);
@@ -66,7 +67,7 @@ void main() {
           test(
             "Should open and return hive box and return a empty task list",
             () async {
-              when(mockHive.openBox(typeString: "todo")).thenAnswer(
+              when(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).thenAnswer(
                 (_) async => mockBox,
               );
               when(mockBox.values.toList()).thenAnswer(
@@ -76,7 +77,7 @@ void main() {
               final result = await localDataSource.getTaskList();
 
               expect(result.length, 0);
-              verify(mockHive.openBox(typeString: "todo")).called(1);
+              verify(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).called(1);
               verify(mockBox.values.toList()).called(1);
               verifyNoMoreInteractions(mockBox);
               verifyNoMoreInteractions(mockHive);
@@ -86,11 +87,12 @@ void main() {
           test(
             "Should throw LocalCacheException when don't found hive box",
             () async {
-              when(mockHive.openBox(typeString: "todo")).thenThrow(LocalFailure(errorText: "Erro cache"));
+              when(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase))
+                  .thenThrow(LocalFailure(errorText: "Erro cache"));
               final result = localDataSource.getTaskList();
 
               expect(() => result, throwsA(isA<LocalFailure>()));
-              verify(mockHive.openBox(typeString: "todo")).called(1);
+              verify(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).called(1);
               verifyNever(mockBox.values);
               verifyNoMoreInteractions(mockBox);
               verifyNoMoreInteractions(mockHive);
@@ -100,7 +102,7 @@ void main() {
           test(
             "Should capture any exception when try to get list",
             () async {
-              when(mockHive.openBox(typeString: "todo")).thenAnswer(
+              when(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).thenAnswer(
                 (_) async => mockBox,
               );
 
@@ -108,7 +110,7 @@ void main() {
               final result = localDataSource.getTaskList();
 
               expect(() => result, throwsA(isA<Exception>()));
-              verify(mockHive.openBox(typeString: "todo")).called(1);
+              verify(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).called(1);
               verifyNoMoreInteractions(mockBox);
               verifyNoMoreInteractions(mockHive);
             },
@@ -122,7 +124,7 @@ void main() {
           test(
             "Should create task and and verify methods for creating task",
             () async {
-              when(mockHive.openBox(typeString: "todo")).thenAnswer(
+              when(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).thenAnswer(
                 (_) async => mockBox,
               );
               when(mockBox.add(mockTodoModel)).thenAnswer((_) async {
@@ -131,7 +133,7 @@ void main() {
 
               await localDataSource.createTask(mockTodoModel);
 
-              verify(mockHive.openBox(typeString: "todo")).called(1);
+              verify(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).called(1);
               verify(mockBox.add(mockTodoModel)).called(1);
               verifyNoMoreInteractions(mockBox);
               verifyNoMoreInteractions(mockHive);
@@ -141,11 +143,12 @@ void main() {
           test(
             "Should throw LocalCacheException when don't found hive box",
             () async {
-              when(mockHive.openBox(typeString: "todo")).thenThrow(LocalFailure(errorText: "Erro cache"));
+              when(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase))
+                  .thenThrow(LocalFailure(errorText: "Erro cache"));
               final result = localDataSource.createTask(mockTodoModel);
 
               expect(() => result, throwsA(isA<LocalFailure>()));
-              verify(mockHive.openBox(typeString: "todo")).called(1);
+              verify(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).called(1);
               verifyNever(mockBox.add(mockTodoModel));
               verifyNoMoreInteractions(mockBox);
               verifyNoMoreInteractions(mockHive);
@@ -155,7 +158,7 @@ void main() {
           test(
             "Should capture any exception when call box.add",
             () async {
-              when(mockHive.openBox(typeString: "todo")).thenAnswer(
+              when(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).thenAnswer(
                 (_) async => mockBox,
               );
               when(mockBox.add(mockTodoModel)).thenThrow(Exception());
@@ -163,7 +166,7 @@ void main() {
               final result = localDataSource.createTask(mockTodoModel);
 
               expect(() => result, throwsA(isA<Exception>()));
-              verify(mockHive.openBox(typeString: "todo")).called(1);
+              verify(mockHive.getBox(typeString: HiveNamesHelper.todoDatabase)).called(1);
               verifyNever(mockBox.add(mockTodoModel));
               verifyNoMoreInteractions(mockBox);
               verifyNoMoreInteractions(mockHive);

@@ -1,5 +1,8 @@
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
+import 'package:exame_todo_list/core/services/hive/boxes.dart';
+import 'package:exame_todo_list/core/services/hive/hive_names_helper.dart';
 import 'package:exame_todo_list/core/services/hive/hive_service.dart';
+import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/annotations.dart';
@@ -7,45 +10,49 @@ import 'package:mockito/mockito.dart';
 
 import 'hive_service_test.mocks.dart';
 
-@GenerateMocks([HiveInterface, Box])
+@GenerateMocks([HiveInterface, Box, Boxes])
 void main() {
   late HiveService service;
-  late MockBox mockBox;
+  late MockBox<Todo> mockBox;
   late MockHiveInterface mockHive;
+  late MockBoxes boxes;
 
   setUp(() {
     mockHive = MockHiveInterface();
-    mockBox = MockBox();
-    service = HiveService(hive: mockHive);
+    mockBox = MockBox<Todo>();
+    boxes = MockBoxes();
+    service = HiveService(hive: mockHive, boxes: boxes);
   });
 
   group(
     "Hive service tests",
     () {
       test(
-        "Should open and return hive box",
+        "Should return hive box",
         () async {
-          when(mockHive.openBox(any)).thenAnswer(
-            (_) async => mockBox,
+          when(boxes.getTaskList()).thenAnswer(
+            (_) => mockBox,
           );
 
-          final result = await service.openBox(typeString: "typeString");
+          final result = await service.getBox(typeString: HiveNamesHelper.todoDatabase);
 
           expect(result, mockBox);
-          verify(mockHive.openBox(any));
+          verify(boxes.getTaskList());
+          verifyNoMoreInteractions(boxes);
           verifyNoMoreInteractions(mockHive);
         },
       );
 
       test(
-        "Should always throw LocalCacheException when try to open hive box",
+        "Should always throw LocalCacheException when get box throw error",
         () async {
-          when(mockHive.openBox(any)).thenThrow(Exception());
+          when(boxes.getTaskList()).thenThrow(Exception());
 
-          final result = service.openBox(typeString: "typeString");
+          final result = service.getBox(typeString: HiveNamesHelper.todoDatabase);
 
           expect(() => result, throwsA(isA<LocalCacheException>()));
-          verify(mockHive.openBox(any));
+          verify(boxes.getTaskList());
+          verifyNoMoreInteractions(boxes);
           verifyNoMoreInteractions(mockHive);
         },
       );

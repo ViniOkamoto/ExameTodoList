@@ -10,7 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final HiveService hiveService = serviceLocator<HiveService>();
-  hiveService.init();
+  await hiveService.init();
 
   Intl.defaultLocale = 'pt_BR';
   initializeDateFormatting('pt_BR', null).then((value) => runApp(TodoListApp()));

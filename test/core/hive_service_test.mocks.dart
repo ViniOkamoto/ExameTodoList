@@ -5,6 +5,8 @@
 import 'dart:async' as _i3;
 import 'dart:typed_data' as _i6;
 
+import 'package:exame_todo_list/core/services/hive/boxes.dart' as _i7;
+import 'package:exame_todo_list/features/models/todo.dart' as _i8;
 import 'package:hive/hive.dart' as _i2;
 import 'package:hive/src/box/default_compaction_strategy.dart' as _i5;
 import 'package:hive/src/box/default_key_comparator.dart' as _i4;
@@ -248,4 +250,18 @@ class MockBox<E> extends _i1.Mock implements _i2.Box<E> {
       (super.noSuchMethod(Invocation.method(#deleteFromDisk, []),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+}
+
+/// A class which mocks [Boxes].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBoxes extends _i1.Mock implements _i7.Boxes {
+  MockBoxes() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.Box<_i8.Todo> getTaskList() =>
+      (super.noSuchMethod(Invocation.method(#getTaskList, []),
+          returnValue: _FakeBox<_i8.Todo>()) as _i2.Box<_i8.Todo>);
 }
