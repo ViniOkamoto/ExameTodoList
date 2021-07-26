@@ -1,11 +1,13 @@
 import 'package:exame_todo_list/core/services/di/service_locator.dart';
 import 'package:exame_todo_list/core/theme/colors.dart';
 import 'package:exame_todo_list/core/theme/typography.dart';
+import 'package:exame_todo_list/core/utils/date_helper.dart';
 import 'package:exame_todo_list/core/utils/form_status.dart';
 import 'package:exame_todo_list/core/utils/size_converter.dart';
 import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
 import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 import 'package:exame_todo_list/features/events/todo_event.dart';
+import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:exame_todo_list/features/screens/todo/todo_bloc.dart';
 import 'package:exame_todo_list/features/state/todo_state.dart';
 import 'package:exame_todo_list/features/widgets/dropdown_text_field.dart';
@@ -17,15 +19,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TodoPage extends StatefulWidget {
+  final Todo? todo;
+  TodoPage({this.todo});
+
   @override
   _TodoPageState createState() => _TodoPageState();
 }
 
 class _TodoPageState extends State<TodoPage> {
   late final TodoBloc _todoBloc;
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
   @override
   void initState() {
     _todoBloc = serviceLocator<TodoBloc>();
+    if (widget.todo != null)
+      _todoBloc.add(
+        TodoEditing(
+          todo: widget.todo!,
+          dateController: dateController,
+          titleController: titleController,
+        ),
+      );
     super.initState();
   }
 
@@ -59,28 +74,29 @@ class _TodoPageState extends State<TodoPage> {
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: SizeConverter.relativeWidth(16),
-                        right: SizeConverter.relativeWidth(16),
-                        top: SizeConverter.relativeWidth(120),
-                        bottom: SizeConverter.relativeHeight(24)),
+                      left: SizeConverter.relativeWidth(16),
+                      right: SizeConverter.relativeWidth(16),
+                      top: SizeConverter.relativeWidth(120),
+                      bottom: SizeConverter.relativeHeight(24),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        _TodoForm(),
-                        Spacing(
-                          height: 160,
+                        _TodoForm(dateController: dateController, titleController: titleController),
+                        Spacing(height: 160),
+                        BlocBuilder<TodoBloc, TodoState>(
+                          builder: (context, state) {
+                            return TodoPrimaryButton(
+                              text: state.isEditing ? "Editar Tarefa" : "Criar Tarefa",
+                              child: state.formStatus is FormSubmitting ? CircularProgressIndicator() : null,
+                              onPressed: state.isValidForm
+                                  ? () {
+                                      context.read<TodoBloc>().add(TodoSubmitted(todo: widget.todo));
+                                    }
+                                  : null,
+                            );
+                          },
                         ),
-                        BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
-                          return TodoPrimaryButton(
-                            text: "Criar tarefa",
-                            child: state.formStatus is FormSubmitting ? CircularProgressIndicator() : null,
-                            onPressed: state.isValidForm
-                                ? () {
-                                    context.read<TodoBloc>().add(TodoSubmitted());
-                                  }
-                                : null,
-                          );
-                        }),
                       ],
                     ),
                   ),
@@ -95,12 +111,15 @@ class _TodoPageState extends State<TodoPage> {
 }
 
 class _TodoForm extends StatefulWidget {
+  final TextEditingController titleController;
+  final TextEditingController dateController;
+  _TodoForm({required this.dateController, required this.titleController});
+
   @override
   __TodoFormState createState() => __TodoFormState();
 }
 
 class __TodoFormState extends State<_TodoForm> {
-  final TextEditingController dateController = TextEditingController();
   var categoryValue;
   var priorityValue;
   DateTime? selectedDate;
@@ -113,6 +132,7 @@ class __TodoFormState extends State<_TodoForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TodoTextField(
+              textEditingController: widget.titleController,
               hintText: "Digite o nome da tarefa",
               onChanged: (String title) => context.read<TodoBloc>().add(
                     TodoTitleChanged(title: title),
@@ -129,15 +149,13 @@ class __TodoFormState extends State<_TodoForm> {
                       DateTime? datePicked = await _openDatePicker(context);
                       if (datePicked != null && datePicked != state.dateTime) {
                         context.read<TodoBloc>().add(TodoDateChanged(date: datePicked));
-                        var date =
-                            "${datePicked.toLocal().day}/${datePicked.toLocal().month}/${datePicked.toLocal().year}";
-                        dateController.text = date;
+                        widget.dateController.text = DateHelper.textFieldString(datePicked);
                       }
                     },
                     style: TodoTypo.p2(
                       color: TodoColors.darkerColor,
                     ),
-                    controller: dateController,
+                    controller: widget.dateController,
                     keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
                       prefixIcon: Icon(

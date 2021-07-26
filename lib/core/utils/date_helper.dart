@@ -18,4 +18,8 @@ class DateHelper {
       return "Falta $valueInMonths mês";
     }
   }
+
+  static String textFieldString(DateTime date) {
+    return "${date.toLocal().day}/${date.toLocal().month}/${date.toLocal().year}";
+  }
 }

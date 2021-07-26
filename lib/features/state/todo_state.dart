@@ -13,6 +13,7 @@ class TodoState extends Equatable {
   final TodoCategoryEnum? category;
   final Failure? exception;
   final FormStatus formStatus;
+  final bool isEditing;
 
   bool get isValidForm {
     return titleIsValid && priorityIsValid;
@@ -25,6 +26,7 @@ class TodoState extends Equatable {
     this.priority,
     this.category = TodoCategoryEnum.other,
     this.priorityIsValid = false,
+    this.isEditing = false,
     this.exception,
     this.formStatus = const InitialFormStatus(),
   });
@@ -42,6 +44,7 @@ class TodoState extends Equatable {
     TodoCategoryEnum? category,
     Failure? exception,
     FormStatus? formStatus,
+    bool? isEditing,
   }) =>
       TodoState(
         title: title ?? this.title,
@@ -52,6 +55,7 @@ class TodoState extends Equatable {
         category: category ?? this.category,
         formStatus: formStatus ?? this.formStatus,
         exception: exception ?? this.exception,
+        isEditing: isEditing ?? this.isEditing,
       );
 
   @override
