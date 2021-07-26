@@ -1,11 +1,19 @@
 import 'package:exame_todo_list/core/theme/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
+part 'todo_category_enum.g.dart';
+
+@HiveType(typeId: 1)
 enum TodoCategoryEnum {
+  @HiveField(0)
   work,
+  @HiveField(1)
   personal,
+  @HiveField(2)
   wellness,
+  @HiveField(3)
   other,
 }
 
@@ -15,6 +23,7 @@ const List<TodoCategoryEnum> categoryList = [
   TodoCategoryEnum.wellness,
   TodoCategoryEnum.other,
 ];
+
 const Map<TodoCategoryEnum, IconData> categoryIcons = {
   TodoCategoryEnum.work: Icons.work,
   TodoCategoryEnum.personal: Icons.person,
