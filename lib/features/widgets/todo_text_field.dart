@@ -5,14 +5,14 @@ import 'package:flutter/services.dart';
 
 class TodoTextField extends StatelessWidget {
   final String hintText;
-  final TextEditingController textEditingController;
+  final TextEditingController? textEditingController;
   final Function(String) onChanged;
   final List<TextInputFormatter>? inputFormatters;
   final String? errorText;
 
   TodoTextField({
     required this.hintText,
-    required this.textEditingController,
+    this.textEditingController,
     required this.onChanged,
     this.inputFormatters,
     this.errorText,

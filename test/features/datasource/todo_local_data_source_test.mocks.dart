@@ -32,6 +32,10 @@ class MockHiveService extends _i1.Mock implements _i3.HiveService {
   _i2.HiveInterface get hive => (super.noSuchMethod(Invocation.getter(#hive),
       returnValue: _FakeHiveInterface()) as _i2.HiveInterface);
   @override
+  _i4.Future<void> init() => (super.noSuchMethod(Invocation.method(#init, []),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
   _i4.Future<_i2.Box<dynamic>> openBox({String? typeString}) => (super
           .noSuchMethod(
               Invocation.method(#openBox, [], {#typeString: typeString}),

@@ -1,47 +1,68 @@
 import 'package:equatable/equatable.dart';
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
+import 'package:exame_todo_list/core/utils/form_status.dart';
+import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
 import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 
 class TodoState extends Equatable {
   final String? title;
+  final bool titleIsValid;
   final DateTime? dateTime;
   final TodoPriorityEnum? priority;
-  final bool? isLoading;
-  final bool hasError;
+  final bool priorityIsValid;
+  final TodoCategoryEnum? category;
   final Failure? exception;
+  final FormStatus formStatus;
+
+  bool get isValidForm {
+    return titleIsValid && priorityIsValid;
+  }
 
   TodoState({
-    this.title = '',
+    this.title,
+    this.titleIsValid = false,
     this.dateTime,
-    this.priority = TodoPriorityEnum.lowPriority,
-    this.isLoading = false,
-    this.hasError = false,
+    this.priority,
+    this.category = TodoCategoryEnum.other,
+    this.priorityIsValid = false,
     this.exception,
+    this.formStatus = const InitialFormStatus(),
   });
-
-  factory TodoState.loading() => TodoState(isLoading: true);
 
   factory TodoState.success() => TodoState();
 
-  factory TodoState.error({required Failure error}) => TodoState(hasError: true, exception: error, isLoading: false);
+  factory TodoState.error({required Failure error}) => TodoState(exception: error);
 
   TodoState copyWith({
     String? title,
+    bool? titleIsValid,
     DateTime? dateTime,
+    bool? priorityIsValid,
     TodoPriorityEnum? priority,
-    bool? isLoading,
-    bool? hasError,
+    TodoCategoryEnum? category,
     Failure? exception,
+    FormStatus? formStatus,
   }) =>
       TodoState(
         title: title ?? this.title,
+        titleIsValid: titleIsValid ?? this.titleIsValid,
         dateTime: dateTime ?? this.dateTime,
         priority: priority ?? this.priority,
-        isLoading: isLoading ?? this.isLoading,
-        hasError: hasError ?? this.hasError,
+        priorityIsValid: priorityIsValid ?? this.priorityIsValid,
+        category: category ?? this.category,
+        formStatus: formStatus ?? this.formStatus,
         exception: exception ?? this.exception,
       );
 
   @override
-  List<Object?> get props => [title, dateTime, priority, isLoading, hasError, exception];
+  List<Object?> get props => [
+        title,
+        dateTime,
+        priority,
+        exception,
+        formStatus,
+        category,
+        priorityIsValid,
+        titleIsValid,
+      ];
 }

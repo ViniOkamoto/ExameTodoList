@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 class TodoPrimaryButton extends StatelessWidget {
   final String text;
   final Function()? onPressed;
+  final Widget? child;
 
   TodoPrimaryButton({
     this.onPressed,
+    this.child,
     required this.text,
   });
 
@@ -19,10 +21,12 @@ class TodoPrimaryButton extends StatelessWidget {
       height: SizeConverter.relativeWidth(50),
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: TodoTypo.p2(color: TodoColors.whiteColor),
-        ),
+        child: child != null
+            ? child
+            : Text(
+                text,
+                style: TodoTypo.p2(color: TodoColors.whiteColor),
+              ),
       ),
     );
   }
