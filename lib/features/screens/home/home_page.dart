@@ -36,17 +36,7 @@ class HomePage extends StatelessWidget {
                   _HeaderPage(),
                   _CategoryList(),
                   Spacing(height: 24),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConverter.relativeWidth(16),
-                    ),
-                    child: Text(
-                      "TAREFAS",
-                      style: TodoTypo.h3(color: TodoColors.grayColor),
-                    ),
-                  ),
-                  Spacing(height: 16),
-                  _TodoList(),
+                  Expanded(child: _TodoList()),
                 ],
               ),
             )
@@ -103,23 +93,38 @@ class _TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(
-          horizontal: SizeConverter.relativeWidth(16),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConverter.relativeWidth(16),
+          ),
+          child: Text(
+            "TAREFAS",
+            style: TodoTypo.h3(color: TodoColors.grayColor),
+          ),
         ),
-        separatorBuilder: (context, index) {
-          return Spacing(height: 8);
-        },
-        itemBuilder: (context, index) {
-          return TodoCard(
-            todo: todoList[index],
-            onChanged: (bool) {},
-          );
-        },
-        itemCount: todoList.length,
-      ),
+        Spacing(height: 16),
+        Expanded(
+          child: ListView.separated(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConverter.relativeWidth(16),
+            ),
+            separatorBuilder: (context, index) {
+              return Spacing(height: 16);
+            },
+            itemBuilder: (context, index) {
+              return TodoCard(
+                todo: todoList[index],
+                onChanged: (bool) {},
+              );
+            },
+            itemCount: todoList.length,
+          ),
+        ),
+      ],
     );
   }
 }
