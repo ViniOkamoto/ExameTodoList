@@ -1,7 +1,7 @@
 import 'package:exame_todo_list/core/theme/colors.dart';
 import 'package:exame_todo_list/core/theme/typography.dart';
 import 'package:exame_todo_list/core/utils/size_converter.dart';
-import 'package:exame_todo_list/features/enums/todo_category.dart';
+import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -11,7 +11,7 @@ class CategoryCard extends StatelessWidget {
     required this.numberTasks,
   });
 
-  final TodoCategory category;
+  final TodoCategoryEnum category;
   final Function() onTap;
   final int numberTasks;
 

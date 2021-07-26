@@ -2,8 +2,8 @@ import 'package:exame_todo_list/core/router/routes.dart';
 import 'package:exame_todo_list/core/theme/colors.dart';
 import 'package:exame_todo_list/core/theme/typography.dart';
 import 'package:exame_todo_list/core/utils/size_converter.dart';
-import 'package:exame_todo_list/features/enums/priority_enum.dart';
-import 'package:exame_todo_list/features/enums/todo_category.dart';
+import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
+import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:exame_todo_list/features/screens/home/widgets/category_card.dart';
 import 'package:exame_todo_list/features/screens/home/widgets/search_todo/search_text_field.dart';
@@ -95,10 +95,10 @@ class _HeaderPage extends StatelessWidget {
 
 class _TodoList extends StatelessWidget {
   final List<Todo> todoList = [
-    Todo(title: "Teste1", dateTime: DateTime.now(), itsDone: false, priority: TodoPriority.highPriority),
-    Todo(title: "Teste2", itsDone: false, priority: TodoPriority.highPriority),
-    Todo(title: "Teste3", itsDone: true, priority: TodoPriority.mediumPriority),
-    Todo(title: "Teste4", itsDone: false, priority: TodoPriority.lowPriority),
+    Todo(title: "Teste1", dateTime: DateTime.now(), itsDone: false, priority: TodoPriorityEnum.highPriority),
+    Todo(title: "Teste2", itsDone: false, priority: TodoPriorityEnum.highPriority),
+    Todo(title: "Teste3", itsDone: true, priority: TodoPriorityEnum.mediumPriority),
+    Todo(title: "Teste4", itsDone: false, priority: TodoPriorityEnum.lowPriority),
   ];
 
   @override
@@ -125,11 +125,11 @@ class _TodoList extends StatelessWidget {
 }
 
 class _CategoryList extends StatelessWidget {
-  final List<TodoCategory> categoryList = [
-    TodoCategory.work,
-    TodoCategory.personal,
-    TodoCategory.wellness,
-    TodoCategory.other,
+  final List<TodoCategoryEnum> categoryList = [
+    TodoCategoryEnum.work,
+    TodoCategoryEnum.personal,
+    TodoCategoryEnum.wellness,
+    TodoCategoryEnum.other,
   ];
 
   @override

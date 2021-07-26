@@ -1,7 +1,7 @@
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
 import 'package:exame_todo_list/core/services/hive/hive_service.dart';
 import 'package:exame_todo_list/features/datasources/todo_local_data_source.dart';
-import 'package:exame_todo_list/features/enums/priority_enum.dart';
+import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -25,7 +25,7 @@ void main() {
   Todo mockTodoModel = Todo(
     dateTime: DateTime.now(),
     itsDone: false,
-    priority: TodoPriority.highPriority,
+    priority: TodoPriorityEnum.highPriority,
     title: "mock",
   );
 

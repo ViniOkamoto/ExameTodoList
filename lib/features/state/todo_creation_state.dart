@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
-import 'package:exame_todo_list/features/enums/priority_enum.dart';
+import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 
 class TodoCreationState extends Equatable {
   final String? title;
   final DateTime? dateTime;
-  final TodoPriority? priority;
+  final TodoPriorityEnum? priority;
   final bool? isLoading;
   final bool hasError;
   final Failure? exception;
@@ -13,7 +13,7 @@ class TodoCreationState extends Equatable {
   TodoCreationState({
     this.title = '',
     this.dateTime,
-    this.priority = TodoPriority.lowPriority,
+    this.priority = TodoPriorityEnum.lowPriority,
     this.isLoading = false,
     this.hasError = false,
     this.exception,
@@ -29,7 +29,7 @@ class TodoCreationState extends Equatable {
   TodoCreationState copyWith({
     String? title,
     DateTime? dateTime,
-    TodoPriority? priority,
+    TodoPriorityEnum? priority,
     bool? isLoading,
     bool? hasError,
     Failure? exception,

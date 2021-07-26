@@ -2,8 +2,8 @@ import 'package:exame_todo_list/core/theme/colors.dart';
 import 'package:exame_todo_list/core/theme/typography.dart';
 import 'package:exame_todo_list/core/utils/date_helper.dart';
 import 'package:exame_todo_list/core/utils/size_converter.dart';
-import 'package:exame_todo_list/features/enums/priority_enum.dart';
-import 'package:exame_todo_list/features/enums/todo_category.dart';
+import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
+import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:exame_todo_list/features/widgets/spacing.dart';
 import 'package:flutter/material.dart';
@@ -57,13 +57,13 @@ class TodoCard extends StatelessWidget {
               children: [
                 Spacing(width: 13),
                 Icon(
-                  categoryIcons[TodoCategory.work],
+                  categoryIcons[TodoCategoryEnum.work],
                   size: SizeConverter.fontSize(24),
                   color: TodoColors.lighterColor,
                 ),
                 Spacing(width: 4),
                 Text(
-                  categoryName[TodoCategory.work]!,
+                  categoryName[TodoCategoryEnum.work]!,
                   style: TodoTypo.caption(color: TodoColors.darkColor),
                 )
               ],

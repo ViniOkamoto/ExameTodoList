@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:exame_todo_list/core/services/hive/hive_names_helper.dart';
-import 'package:exame_todo_list/features/enums/priority_enum.dart';
+import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 import 'package:hive/hive.dart';
 
 part 'todo.g.dart';
@@ -12,7 +12,7 @@ class Todo with EquatableMixin, HiveObjectMixin {
   @HiveField(HiveNamesHelper.dateTimeTodoField)
   final DateTime? dateTime;
   @HiveField(HiveNamesHelper.priorityTodoField)
-  final TodoPriority priority;
+  final TodoPriorityEnum priority;
   @HiveField(HiveNamesHelper.itsDoneTodoField)
   final bool itsDone;
 
