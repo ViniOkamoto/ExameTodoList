@@ -7,26 +7,40 @@ import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:exame_todo_list/features/widgets/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class TodoCard extends StatelessWidget {
   final Todo todo;
   final Function(bool?)? onChanged;
-  final Function(DismissDirection)? onDismissed;
+  final Function() onEdit;
+  final Function() onDelete;
 
   TodoCard({
     required this.todo,
     required this.onChanged,
-    required this.onDismissed,
+    required this.onEdit,
+    required this.onDelete,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      direction: DismissDirection.horizontal,
-      key: UniqueKey(),
-      background: _SwipeRight(),
-      secondaryBackground: _SwipeLeft(),
-      onDismissed: onDismissed,
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      actionExtentRatio: 0.25,
+      secondaryActions: [
+        IconSlideAction(
+          caption: 'Editar',
+          color: Colors.indigo,
+          icon: Icons.edit,
+          onTap: onEdit,
+        ),
+        IconSlideAction(
+          caption: 'Deletar',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: onDelete,
+        ),
+      ],
       child: Container(
         margin: EdgeInsets.only(bottom: SizeConverter.relativeHeight(16)),
         decoration: BoxDecoration(
@@ -102,52 +116,6 @@ class TodoCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _SwipeRight extends StatelessWidget {
-  const _SwipeRight({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.symmetric(horizontal: SizeConverter.relativeWidth(16)),
-      margin: EdgeInsets.only(
-        left: SizeConverter.relativeWidth(16),
-        bottom: SizeConverter.relativeHeight(16),
-      ),
-      decoration: BoxDecoration(
-        color: TodoColors.highlightColor,
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      child: Icon(Icons.edit, color: Colors.white, size: SizeConverter.fontSize(24)),
-    );
-  }
-}
-
-class _SwipeLeft extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerRight,
-      padding: EdgeInsets.symmetric(horizontal: SizeConverter.relativeWidth(16)),
-      margin: EdgeInsets.only(
-        left: SizeConverter.relativeWidth(16),
-        bottom: SizeConverter.relativeHeight(16),
-      ),
-      decoration: BoxDecoration(
-        color: TodoColors.redPriorityColor,
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      child: Icon(Icons.delete, color: Colors.white, size: SizeConverter.fontSize(24)),
     );
   }
 }

@@ -168,22 +168,16 @@ class _TodoList extends StatelessWidget {
                       itemBuilder: (context, index) {
                         Todo todo = state.todoList[index];
                         return TodoCard(
-                          onDismissed: (direction) {
-                            switch (direction) {
-                              case DismissDirection.startToEnd:
-                                Navigator.pushNamed(context, Routes.todo, arguments: todo);
-                                break;
-                              case DismissDirection.endToStart:
-                                context.read<HomeBloc>().add(TodoDeleted(todo: todo, index: index));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Tarefa excluída'),
-                                  ),
-                                );
-                                break;
-                              default:
-                                break;
-                            }
+                          onDelete: () {
+                            context.read<HomeBloc>().add(TodoDeleted(todo: todo, index: index));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Tarefa excluída'),
+                              ),
+                            );
+                          },
+                          onEdit: () {
+                            Navigator.pushNamed(context, Routes.todo, arguments: todo);
                           },
                           todo: todo,
                           onChanged: (bool) {
