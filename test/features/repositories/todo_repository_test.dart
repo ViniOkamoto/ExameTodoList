@@ -19,7 +19,7 @@ void main() {
 
   setUp(() {
     localDataSource = MockTodoLocalDataSource();
-    repository = TodoRepository(localSource: localDataSource);
+    repository = TodoRepositoryImpl(localSource: localDataSource);
   });
 
   Todo mockTodoModel = Todo(
@@ -49,8 +49,8 @@ void main() {
     hasError: true,
   );
 
-  HomeState mockAnyErrorState = HomeState(
-    exception: Failure(),
+  HomeState mockSearchErrorState = HomeState(
+    exception: Failure(errorText: "Erro ao buscar lista"),
     hasError: true,
   );
 
@@ -112,7 +112,7 @@ void main() {
 
             final result = await repository.getTaskList();
 
-            expect(result, mockAnyErrorState);
+            expect(result, mockSearchErrorState);
             verify(localDataSource.getTaskList());
             verifyNoMoreInteractions(localDataSource);
           },
@@ -139,7 +139,7 @@ void main() {
               when(localDataSource.createTask(mockTodoModel)).thenThrow(Exception());
               final result = await repository.createTask(mockTodoModel);
 
-              expect(result, TodoState.error(error: Failure()));
+              expect(result, TodoState.error(error: Failure(errorText: "Erro ao criar tarefa")));
               verify(localDataSource.createTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },
@@ -179,7 +179,7 @@ void main() {
               when(localDataSource.deleteTask(mockTodoModel)).thenThrow(Exception());
               final result = await repository.deleteTask(mockTodoModel);
 
-              expect(result, TodoState.error(error: Failure()));
+              expect(result, TodoState.error(error: Failure(errorText: "Erro ao deletar tarefa")));
               verify(localDataSource.deleteTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },
