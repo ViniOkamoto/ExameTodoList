@@ -127,10 +127,7 @@ class _TodoList extends StatelessWidget {
                 builder: (contextListenable, box, _) {
                   context.read<HomeBloc>().add(FetchTaskList(todoList: box.values.toList().cast<Todo>()));
                   List<Todo> todoList = state.todoList;
-                  if (state.categoryFilter != null)
-                    todoList = todoList
-                        .filter((element) => element.category.index == categoryIndex[state.categoryFilter])
-                        .toList();
+                  if (state.categoryFilter != null) todoList = _buildFilteredList(todoList, state.categoryFilter!);
                   if (todoList.isEmpty)
                     return Padding(
                       padding: EdgeInsets.symmetric(
@@ -195,6 +192,10 @@ class _TodoList extends StatelessWidget {
       ),
     );
   }
+
+  _buildFilteredList(List<Todo> list, TodoCategoryEnum category) {
+    return list.filter((element) => element.category.index == categoryIndex[category]).toList();
+  }
 }
 
 class _CategoryList extends StatelessWidget {
@@ -228,7 +229,6 @@ class _CategoryList extends StatelessWidget {
                 },
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  print(state.categoryFilter);
                   int quantity = 0;
                   switch (index) {
                     case 0:

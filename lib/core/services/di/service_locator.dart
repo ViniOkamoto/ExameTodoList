@@ -17,11 +17,11 @@ Future<void> setupLocator() async {
     ),
   );
   serviceLocator.registerLazySingleton<TodoRepository>(
-    () => TodoRepository(
+    () => TodoRepositoryImpl(
       localSource: serviceLocator<TodoLocalDataSource>(),
     ),
   );
 
-  serviceLocator.registerFactory(() => TodoBloc(todoRepository: serviceLocator<TodoRepository>()));
-  serviceLocator.registerFactory(() => HomeBloc(todoRepository: serviceLocator<TodoRepository>()));
+  serviceLocator.registerFactory<TodoBloc>(() => TodoBloc(todoRepository: serviceLocator<TodoRepository>()));
+  serviceLocator.registerFactory<HomeBloc>(() => HomeBloc(todoRepository: serviceLocator<TodoRepository>()));
 }
