@@ -15,7 +15,6 @@ enum TodoCategoryEnum {
   wellness,
   @HiveField(3)
   other,
-  none,
 }
 
 const List<TodoCategoryEnum> categoryList = [
