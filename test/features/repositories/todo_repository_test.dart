@@ -4,7 +4,7 @@ import 'package:exame_todo_list/features/enums/todo_category_enum.dart';
 import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:exame_todo_list/features/repositories/todo_repository.dart';
-import 'package:exame_todo_list/features/state/todo_creation_state.dart';
+import 'package:exame_todo_list/features/state/home_state.dart';
 import 'package:exame_todo_list/features/state/todo_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -36,7 +36,7 @@ void main() {
     mockTodoModel,
   ];
 
-  TodoState mockSuccessfulState = TodoState(
+  HomeState mockSuccessfulState = HomeState(
     todoList: [
       mockTodoModel,
       mockTodoModel,
@@ -44,17 +44,17 @@ void main() {
     ],
   );
 
-  TodoState mockLocalErrorState = TodoState(
+  HomeState mockLocalErrorState = HomeState(
     exception: LocalFailure(errorText: "local error"),
     hasError: true,
   );
 
-  TodoState mockAnyErrorState = TodoState(
+  HomeState mockAnyErrorState = HomeState(
     exception: Failure(),
     hasError: true,
   );
 
-  TodoState mockSuccessfulStateWithEmptyList = TodoState(
+  HomeState mockSuccessfulStateWithEmptyList = HomeState(
     todoList: <Todo>[],
   );
 
@@ -127,7 +127,7 @@ void main() {
             () async {
               final result = await repository.createTask(mockTodoModel);
 
-              expect(result, TodoCreationState.success());
+              expect(result, TodoState.success());
               verify(localDataSource.createTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },
@@ -139,7 +139,7 @@ void main() {
               when(localDataSource.createTask(mockTodoModel)).thenThrow(Exception());
               final result = await repository.createTask(mockTodoModel);
 
-              expect(result, TodoCreationState.error(error: Failure()));
+              expect(result, TodoState.error(error: Failure()));
               verify(localDataSource.createTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },
@@ -151,7 +151,7 @@ void main() {
               when(localDataSource.createTask(mockTodoModel)).thenThrow(LocalFailure(errorText: "erro"));
               final result = await repository.createTask(mockTodoModel);
 
-              expect(result, TodoCreationState.error(error: LocalFailure(errorText: "erro")));
+              expect(result, TodoState.error(error: LocalFailure(errorText: "erro")));
               verify(localDataSource.createTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },
@@ -167,7 +167,7 @@ void main() {
             () async {
               final result = await repository.deleteTask(mockTodoModel);
 
-              expect(result, TodoCreationState.success());
+              expect(result, TodoState.success());
               verify(localDataSource.deleteTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },
@@ -179,7 +179,7 @@ void main() {
               when(localDataSource.deleteTask(mockTodoModel)).thenThrow(Exception());
               final result = await repository.deleteTask(mockTodoModel);
 
-              expect(result, TodoCreationState.error(error: Failure()));
+              expect(result, TodoState.error(error: Failure()));
               verify(localDataSource.deleteTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },
@@ -195,7 +195,7 @@ void main() {
             () async {
               final result = await repository.updateTask(mockTodoModel);
 
-              expect(result, TodoCreationState.success());
+              expect(result, TodoState.success());
               verify(localDataSource.updateTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },
@@ -207,7 +207,7 @@ void main() {
               when(localDataSource.updateTask(mockTodoModel)).thenThrow(Exception());
               final result = await repository.updateTask(mockTodoModel);
 
-              expect(result, TodoCreationState.error(error: Failure()));
+              expect(result, TodoState.error(error: Failure()));
               verify(localDataSource.updateTask(mockTodoModel));
               verifyNoMoreInteractions(localDataSource);
             },

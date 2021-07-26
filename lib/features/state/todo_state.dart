@@ -1,40 +1,47 @@
 import 'package:equatable/equatable.dart';
 import 'package:exame_todo_list/core/errors/common_exceptions.dart';
-import 'package:exame_todo_list/features/models/todo.dart';
+import 'package:exame_todo_list/features/enums/todo_priority_enum.dart';
 
 class TodoState extends Equatable {
-  final List<Todo>? todoList;
+  final String? title;
+  final DateTime? dateTime;
+  final TodoPriorityEnum? priority;
+  final bool? isLoading;
   final bool hasError;
-  final bool isLoading;
   final Failure? exception;
 
   TodoState({
-    this.todoList,
-    this.hasError = false,
+    this.title = '',
+    this.dateTime,
+    this.priority = TodoPriorityEnum.lowPriority,
     this.isLoading = false,
+    this.hasError = false,
     this.exception,
   });
+
   factory TodoState.loading() => TodoState(isLoading: true);
 
-  factory TodoState.success({List<Todo>? todoList}) => TodoState(
-        todoList: todoList,
-      );
+  factory TodoState.success() => TodoState();
 
-  factory TodoState.error({required Failure error}) => TodoState(hasError: true, exception: error);
+  factory TodoState.error({required Failure error}) => TodoState(hasError: true, exception: error, isLoading: false);
 
   TodoState copyWith({
-    List<Todo>? todoList,
-    bool? hasError,
+    String? title,
+    DateTime? dateTime,
+    TodoPriorityEnum? priority,
     bool? isLoading,
+    bool? hasError,
     Failure? exception,
   }) =>
       TodoState(
-        todoList: todoList ?? this.todoList,
+        title: title ?? this.title,
+        dateTime: dateTime ?? this.dateTime,
+        priority: priority ?? this.priority,
         isLoading: isLoading ?? this.isLoading,
         hasError: hasError ?? this.hasError,
         exception: exception ?? this.exception,
       );
 
   @override
-  List<Object?> get props => [todoList, isLoading, hasError, exception];
+  List<Object?> get props => [title, dateTime, priority, isLoading, hasError, exception];
 }
