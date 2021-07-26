@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 class CategoryCard extends StatelessWidget {
   final TodoCategoryEnum category;
   final Function() onTap;
-  final int numberTasks;
+  final int taskQuantity;
+  final bool isSelected;
 
   CategoryCard({
     required this.category,
     required this.onTap,
-    required this.numberTasks,
+    required this.taskQuantity,
+    this.isSelected = false,
   });
 
   @override
@@ -26,13 +28,15 @@ class CategoryCard extends StatelessWidget {
           borderRadius: BorderRadius.all(
             Radius.circular(15),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: categoryShadow[category]!,
-              blurRadius: 10,
-              offset: Offset(2, 4),
-            ),
-          ],
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: categoryShadow[category]!,
+                    blurRadius: 10,
+                    offset: Offset(2, 4),
+                  ),
+                ]
+              : null,
         ),
         child: Stack(
           children: [
@@ -59,7 +63,7 @@ class CategoryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "$numberTasks tasks",
+                    "$taskQuantity tasks",
                     style: TodoTypo.p3(color: TodoColors.darkColor),
                   ),
                   Row(

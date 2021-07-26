@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 final ThemeData appTheme = ThemeData(
   primaryColor: TodoColors.highlightColor,
   backgroundColor: TodoColors.whiteColor,
-  accentColor: TodoColors.highlightLightColor,
+  accentColor: TodoColors.highlightColor,
   unselectedWidgetColor: TodoColors.grayColor,
   fontFamily: Constants.fontFamily,
   textButtonTheme: TextButtonThemeData(

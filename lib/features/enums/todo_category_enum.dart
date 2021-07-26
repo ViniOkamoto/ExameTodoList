@@ -15,6 +15,7 @@ enum TodoCategoryEnum {
   wellness,
   @HiveField(3)
   other,
+  none,
 }
 
 const List<TodoCategoryEnum> categoryList = [
@@ -23,6 +24,13 @@ const List<TodoCategoryEnum> categoryList = [
   TodoCategoryEnum.wellness,
   TodoCategoryEnum.other,
 ];
+
+const Map<TodoCategoryEnum, int> categoryIndex = {
+  TodoCategoryEnum.work: 0,
+  TodoCategoryEnum.personal: 1,
+  TodoCategoryEnum.wellness: 2,
+  TodoCategoryEnum.other: 3,
+};
 
 const Map<TodoCategoryEnum, IconData> categoryIcons = {
   TodoCategoryEnum.work: Icons.work,

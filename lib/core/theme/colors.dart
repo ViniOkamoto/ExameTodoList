@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TodoColors {
   static const Color highlightDarkColor = Color(0xFFD4780E);
   static const Color highlightColor = Color(0xFFFB8B0B);
-  static const Color highlightLightColor = Color(0xFFFFB560);
+  static const Color highlightLightColor = Color(0xFFFFDEB8);
   static const Color darkestColor = Color(0xFF2A3740);
   static const Color darkerColor = Color(0xFF4C5667);
   static const Color darkColor = Color(0xFF697A8B);
