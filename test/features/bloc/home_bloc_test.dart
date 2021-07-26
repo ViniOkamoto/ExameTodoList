@@ -6,7 +6,6 @@ import 'package:exame_todo_list/features/models/todo.dart';
 import 'package:exame_todo_list/features/repositories/todo_repository.dart';
 import 'package:exame_todo_list/features/screens/home/home_bloc.dart';
 import 'package:exame_todo_list/features/state/home_state.dart';
-import 'package:exame_todo_list/features/state/todo_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
@@ -15,7 +14,6 @@ import 'home_bloc_tests.mocks.dart';
 @GenerateMocks([TodoRepository])
 void main() {
   late TodoRepository repository;
-  late HomeBloc bloc;
 
   setUp(() {
     repository = MockTodoRepository();
@@ -51,16 +49,6 @@ void main() {
     category: TodoCategoryEnum.other,
     title: "mock",
   );
-
-  Todo mockTodoModelTrueDone = Todo(
-    dateTime: DateTime.now(),
-    itsDone: true,
-    priority: TodoPriorityEnum.highPriority,
-    category: TodoCategoryEnum.personal,
-    title: "mock",
-  );
-
-  TodoState mockSuccessTodoState = TodoState();
 
   List<Todo> mockTaskList = [mockPersonalTodoModel, mockWorkTodoModel, mockWellnessTodoModel, mockOtherTodoModel];
 
