@@ -14,9 +14,15 @@ import 'home_bloc_test.mocks.dart';
 @GenerateMocks([TodoRepository])
 void main() {
   late TodoRepository repository;
+  late HomeBloc bloc;
 
   setUp(() {
     repository = MockTodoRepository();
+    bloc = HomeBloc(todoRepository: repository);
+  });
+
+  tearDown(() {
+    bloc.close();
   });
 
   Todo mockPersonalTodoModel = Todo(
@@ -61,7 +67,7 @@ void main() {
           test(
             "Initial state is home state",
             () async {
-              expect(HomeBloc(todoRepository: repository).state, HomeState());
+              expect(bloc.state, HomeState());
             },
           );
 
@@ -74,7 +80,7 @@ void main() {
           //       repository.updateTask(mockPersonalTodoModel),
           //     ).thenAnswer((_) async => mockSuccessTodoState);
           //
-          //     return HomeBloc(todoRepository: repository);
+          //     return bloc;
           //   },
           //   act: (bloc) {
           //     bloc.add(TodoTouched(todo: mockTodoModelTrueDone));
@@ -88,7 +94,7 @@ void main() {
           blocTest<HomeBloc, HomeState>(
             'emits [FilterList] '
             'return state with category selected',
-            build: () => HomeBloc(todoRepository: repository),
+            build: () => bloc,
             act: (bloc) => bloc.add(FilterList(category: TodoCategoryEnum.work)),
             expect: () => <HomeState>[
               HomeState(),
@@ -99,7 +105,7 @@ void main() {
           blocTest<HomeBloc, HomeState>(
             'emits [FetchTaskList] '
             'return state with category selected',
-            build: () => HomeBloc(todoRepository: repository),
+            build: () => bloc,
             act: (bloc) => bloc.add(FetchTaskList(todoList: mockTaskList)),
             expect: () => <HomeState>[
               HomeState(),
@@ -122,7 +128,7 @@ void main() {
           //       repository.deleteTask(mockWorkTodoModel),
           //     ).thenThrow((Failure()));
           //
-          //     return HomeBloc(todoRepository: repository);
+          //     return bloc;
           //   },
           //   act: (bloc) => bloc.add(TodoDeleted(todo: mockWorkTodoModel, index: 1)),
           //   expect: () => <HomeState>[
