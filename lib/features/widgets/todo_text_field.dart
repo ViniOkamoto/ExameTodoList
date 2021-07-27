@@ -11,12 +11,13 @@ class TodoTextField extends StatelessWidget {
   final String? errorText;
 
   TodoTextField({
+    Key? key,
     required this.hintText,
     this.textEditingController,
     required this.onChanged,
     this.inputFormatters,
     this.errorText,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

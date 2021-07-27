@@ -9,10 +9,11 @@ class TodoPrimaryButton extends StatelessWidget {
   final Widget? child;
 
   TodoPrimaryButton({
+    Key? key,
     this.onPressed,
     this.child,
     required this.text,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

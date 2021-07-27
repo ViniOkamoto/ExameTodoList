@@ -87,6 +87,7 @@ class _TodoPageState extends State<TodoPage> {
                         BlocBuilder<TodoBloc, TodoState>(
                           builder: (context, state) {
                             return TodoPrimaryButton(
+                              key: Key("button"),
                               text: state.isEditing ? "Editar Tarefa" : "Criar Tarefa",
                               child: state.formStatus is FormSubmitting ? CircularProgressIndicator() : null,
                               onPressed: state.isValidForm
@@ -132,6 +133,7 @@ class __TodoFormState extends State<_TodoForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TodoTextField(
+              key: Key("title_text_field"),
               textEditingController: widget.titleController,
               hintText: "Digite o nome da tarefa",
               onChanged: (String title) => context.read<TodoBloc>().add(
@@ -142,8 +144,8 @@ class __TodoFormState extends State<_TodoForm> {
             Row(
               children: [
                 Flexible(
-                  flex: 6,
                   child: TextField(
+                    key: Key("date_text_field"),
                     onTap: () async {
                       FocusScope.of(context).requestFocus(new FocusNode());
                       DateTime? datePicked = await _openDatePicker(context);
@@ -185,8 +187,8 @@ class __TodoFormState extends State<_TodoForm> {
                   width: 16,
                 ),
                 Flexible(
-                  flex: 4,
                   child: _PriorityDropDown(
+                    key: Key("priority_drop_down"),
                     onChanged: (priority) => context.read<TodoBloc>().add(
                           TodoPriorityChanged(priority: priority),
                         ),
@@ -196,14 +198,12 @@ class __TodoFormState extends State<_TodoForm> {
               ],
             ),
             Spacing(height: 16),
-            SizedBox(
-              width: SizeConverter.relativeWidth(182),
-              child: _CategoryDropDown(
-                onChanged: (category) => context.read<TodoBloc>().add(
-                      TodoCategoryChanged(category: category),
-                    ),
-                value: state.category,
-              ),
+            _CategoryDropDown(
+              key: Key("category_drop_down"),
+              onChanged: (category) => context.read<TodoBloc>().add(
+                    TodoCategoryChanged(category: category),
+                  ),
+              value: state.category,
             ),
           ],
         );
@@ -222,7 +222,12 @@ class __TodoFormState extends State<_TodoForm> {
 }
 
 class _PriorityDropDown extends StatelessWidget {
-  _PriorityDropDown({required this.onChanged, required this.value});
+  _PriorityDropDown({
+    Key? key,
+    required this.onChanged,
+    required this.value,
+  }) : super(key: key);
+
   final Function(dynamic) onChanged;
   final dynamic value;
 
@@ -231,7 +236,8 @@ class _PriorityDropDown extends StatelessWidget {
     return DropDownTextField(
       hintText: "Prioridade",
       items: priorityList.map((TodoPriorityEnum priority) {
-        return new DropdownMenuItem(
+        return DropdownMenuItem(
+          key: UniqueKey(),
           value: priority,
           child: Row(
             children: <Widget>[
@@ -256,7 +262,12 @@ class _PriorityDropDown extends StatelessWidget {
 }
 
 class _CategoryDropDown extends StatelessWidget {
-  _CategoryDropDown({required this.onChanged, required this.value});
+  _CategoryDropDown({
+    Key? key,
+    required this.onChanged,
+    required this.value,
+  }) : super(key: key);
+
   final Function(dynamic) onChanged;
   final dynamic value;
 
@@ -265,8 +276,9 @@ class _CategoryDropDown extends StatelessWidget {
     return DropDownTextField(
       hintText: "Categoria",
       items: categoryList.map(
-        (TodoCategoryEnum? category) {
+        (TodoCategoryEnum category) {
           return DropdownMenuItem(
+            key: Key("category_item_${category.index}"),
             value: category,
             child: Row(
               children: <Widget>[
