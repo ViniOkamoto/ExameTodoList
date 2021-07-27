@@ -2,6 +2,7 @@
 
 Aplicativo desenvolvido no intuito de demonstrar habilidades técnicas com flutter para processo seletivo da Exame
 
+<img src ="readme_source/app.gif" height="600em"/>
 
 ### Features
 * Listagem de tarefas
@@ -46,6 +47,7 @@ $ flutter pub run build_runner watch --delete-conflict-outputs
 
 
 ## Arquitetura
+![Bloc](readme_source/bloc_architecture.png)
 
 A arquitetura foi desenvolvida e baseada no Business Logic of Component (ou BLoC para os íntimos) é um padrão apresentado pelo Google. Ela possui camadas bem dividas entre elas são: UI, Bloc, Repository e Datasources.
 
@@ -62,3 +64,4 @@ Aqui está nossa camada de implementação que conversa com o mundo interno e ex
 A Datasource ela é responsável pela nossa comunicação externa que retorna para o mundo interno os nossos dados. Aqui nestá camada podemos consumir informações tanto de uma API quanto de um cache local.
 
 ## Agradecimentos
+Agradeço sempre a oportunidade dada para demonstrar meu potencial!
