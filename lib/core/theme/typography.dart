@@ -33,16 +33,6 @@ class TodoTypo {
     );
   }
 
-  static TextStyle h4({
-    color = Colors.black,
-  }) {
-    return TextStyle(
-      color: color,
-      fontSize: SizeConverter.fontSize(14),
-      fontWeight: FontWeight.w600,
-    );
-  }
-
   static TextStyle p1({
     color = Colors.black,
   }) {
@@ -80,17 +70,6 @@ class TodoTypo {
       color: color,
       fontSize: SizeConverter.fontSize(13),
       fontWeight: FontWeight.w400,
-    );
-  }
-
-  static TextStyle smallText({
-    color = Colors.black,
-    fontWeight = FontWeight.w400,
-  }) {
-    return TextStyle(
-      color: color,
-      fontSize: SizeConverter.fontSize(10),
-      fontWeight: fontWeight,
     );
   }
 }
