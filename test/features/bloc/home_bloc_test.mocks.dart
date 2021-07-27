@@ -5,7 +5,8 @@
 import 'dart:async' as _i5;
 
 import 'package:exame_todo_list/features/models/todo.dart' as _i6;
-import 'package:exame_todo_list/features/repositories/todo_repository.dart' as _i4;
+import 'package:exame_todo_list/features/repositories/todo_repository.dart'
+    as _i4;
 import 'package:exame_todo_list/features/state/home_state.dart' as _i2;
 import 'package:exame_todo_list/features/state/todo_state.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -31,15 +32,23 @@ class MockTodoRepository extends _i1.Mock implements _i4.TodoRepository {
   }
 
   @override
-  _i5.Future<_i2.HomeState> getTaskList() => (super.noSuchMethod(Invocation.method(#getTaskList, []),
-      returnValue: Future<_i2.HomeState>.value(_FakeHomeState())) as _i5.Future<_i2.HomeState>);
+  _i5.Future<_i2.HomeState> getTaskList() =>
+      (super.noSuchMethod(Invocation.method(#getTaskList, []),
+              returnValue: Future<_i2.HomeState>.value(_FakeHomeState()))
+          as _i5.Future<_i2.HomeState>);
   @override
-  _i5.Future<_i3.TodoState> createTask(_i6.Todo? todo) => (super.noSuchMethod(Invocation.method(#createTask, [todo]),
-      returnValue: Future<_i3.TodoState>.value(_FakeTodoState())) as _i5.Future<_i3.TodoState>);
+  _i5.Future<_i3.TodoState> createTask(_i6.Todo? todo) =>
+      (super.noSuchMethod(Invocation.method(#createTask, [todo]),
+              returnValue: Future<_i3.TodoState>.value(_FakeTodoState()))
+          as _i5.Future<_i3.TodoState>);
   @override
-  _i5.Future<_i3.TodoState> updateTask(_i6.Todo? todo) => (super.noSuchMethod(Invocation.method(#updateTask, [todo]),
-      returnValue: Future<_i3.TodoState>.value(_FakeTodoState())) as _i5.Future<_i3.TodoState>);
+  _i5.Future<_i3.TodoState> updateTask(_i6.Todo? todo) =>
+      (super.noSuchMethod(Invocation.method(#updateTask, [todo]),
+              returnValue: Future<_i3.TodoState>.value(_FakeTodoState()))
+          as _i5.Future<_i3.TodoState>);
   @override
-  _i5.Future<_i3.TodoState> deleteTask(_i6.Todo? todo) => (super.noSuchMethod(Invocation.method(#deleteTask, [todo]),
-      returnValue: Future<_i3.TodoState>.value(_FakeTodoState())) as _i5.Future<_i3.TodoState>);
+  _i5.Future<_i3.TodoState> deleteTask(_i6.Todo? todo) =>
+      (super.noSuchMethod(Invocation.method(#deleteTask, [todo]),
+              returnValue: Future<_i3.TodoState>.value(_FakeTodoState()))
+          as _i5.Future<_i3.TodoState>);
 }

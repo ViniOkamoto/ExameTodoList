@@ -9,7 +9,7 @@ import 'package:exame_todo_list/features/state/home_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
-import 'home_bloc_tests.mocks.dart';
+import 'home_bloc_test.mocks.dart';
 
 @GenerateMocks([TodoRepository])
 void main() {
